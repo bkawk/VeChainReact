@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
+    "types": [
+      "@vechain/connex"
+    ],
     "target": "es5",
     "lib": [
       "dom",
