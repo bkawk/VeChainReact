@@ -76,7 +76,7 @@ function App() {
       body: JSON.stringify({ address, amount }),
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json; charset=UTF-8',
       },
       method: 'POST',
     };
@@ -140,7 +140,7 @@ function App() {
         ) : (
           <div className='form'>
             <label>
-              Address *
+              Recipient Address *
               <input
                 type='text'
                 value={state.address}
