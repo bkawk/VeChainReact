@@ -24,7 +24,7 @@ export interface IsMyBalance {
 
 function App() {
   const [state, setState] = useState<IsState>({
-    address: '0x4eC15f15Fa0b9C7B702Db240Cf32B289A1153820',
+    address: '0x224474d7af5a80708A36DaE803CB4477177A95DE',
     amount: 1,
   });
 

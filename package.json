@@ -27,7 +27,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "docker": "docker-compose up --build"
+    "docker": "docker-compose up --build",
+    "deploy": "aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 308475981017.dkr.ecr.us-east-2.amazonaws.com && docker build -t vechain-react-repo . && docker tag vechain-react-repo:latest 308475981017.dkr.ecr.us-east-2.amazonaws.com/vechain-react-repo:latest && docker push 308475981017.dkr.ecr.us-east-2.amazonaws.com/vechain-react-repo:latest"
   },
   "eslintConfig": {
     "extends": [

@@ -1,11 +1,12 @@
-FROM node:14 as build-step
-WORKDIR /usr/src/app
-COPY package.json yarn.lock ./
-RUN yarn
+FROM node:14 as build
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
 COPY . ./
-RUN yarn build
+RUN npm run build
 
-FROM nginx:1.12-alpine
-COPY --from=build-step /usr/src/app/build /usr/share/nginx/html
+FROM nginx:stable-alpine
+COPY --from=build /app/build /usr/share/nginx/html
+# COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
