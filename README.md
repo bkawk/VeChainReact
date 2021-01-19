@@ -54,3 +54,5 @@ tslint --project .
 * Create a Fargate service in the Cluster, connect the load balancer and configure the security group
 * Alias the domain to the load balancer
 * Setup AWS Code Deploy linking it to GitHub
+
+![Network diagram](https://i.imgur.com/dNK55T8.png)
