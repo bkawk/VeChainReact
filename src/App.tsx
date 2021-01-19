@@ -70,16 +70,16 @@ function App() {
 
   const requestFunds = async () => {
     if (window.connex) {
+      const { amount } = state;
       const signingService = connex.vendor.sign('cert');
       const result = await signingService.request({
         payload: {
-          content: 'Select a wallet where you would like the requested funds to be deposited',
+          content: `Select a Testnet wallet where you would like ${amount} VET to be deposited`,
           type: 'text',
         },
         purpose: 'identification',
       });
       const address = result.annex.signer;
-      const { amount } = state;
       setLoading({ ...loading, state: true });
       const url = `${process.env.REACT_APP_API_BASE_URL}/v1/request-funds`;
       const settings = {
@@ -151,7 +151,7 @@ function App() {
         ) : (
           <div className='form'>
             <label>
-              Amount *
+              How many VET token would you like?
               <input
                 type='number'
                 value={state.amount}
