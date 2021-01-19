@@ -69,43 +69,54 @@ function App() {
   };
 
   const requestFunds = async () => {
-    const { address, amount } = state;
-    setLoading({ ...loading, state: true });
-    const url = `${process.env.REACT_APP_API_BASE_URL}/v1/request-funds`;
-    const settings = {
-      body: JSON.stringify({ address, amount }),
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      method: 'POST',
-    };
-    if (address.length !== 42) {
-      setApiError({
-        description: 'Address wrong length',
-        error: true,
+    if (window.connex) {
+      const signingService = connex.vendor.sign('cert');
+      const result = await signingService.request({
+        payload: {
+          content: 'Select a wallet where you would like the requested funds to be deposited',
+          type: 'text',
+        },
+        purpose: 'identification',
       });
-    } else if (amount < 0.000001) {
-      setApiError({
-        description: 'Amount must be greater than 0.000001',
-        error: true,
-      });
-    } else {
-      try {
-        getBalance(address);
-        const fetchResponse = await fetch(url, settings);
-        const data = await fetchResponse.json();
-        // tslint:disable-next-line: no-console
-        console.log(data);
-        setLoading({
-          description: 'Funds Requested',
-          state: false,
-        });
-      } catch (e) {
+      const address = result.annex.signer;
+      const { amount } = state;
+      setLoading({ ...loading, state: true });
+      const url = `${process.env.REACT_APP_API_BASE_URL}/v1/request-funds`;
+      const settings = {
+        body: JSON.stringify({ address, amount }),
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        method: 'POST',
+      };
+      if (address.length !== 42) {
         setApiError({
-          description: 'api error',
+          description: 'Address wrong length',
           error: true,
         });
+      } else if (amount < 0.000001) {
+        setApiError({
+          description: 'Amount must be greater than 0.000001',
+          error: true,
+        });
+      } else {
+        try {
+          getBalance(address);
+          const fetchResponse = await fetch(url, settings);
+          const data = await fetchResponse.json();
+          // tslint:disable-next-line: no-console
+          console.log(data);
+          setLoading({
+            description: 'Funds Requested',
+            state: false,
+          });
+        } catch (e) {
+          setApiError({
+            description: 'api error',
+            error: true,
+          });
+        }
       }
     }
   };
@@ -139,15 +150,6 @@ function App() {
           </div>
         ) : (
           <div className='form'>
-            <label>
-              Recipient Address *
-              <input
-                type='text'
-                value={state.address}
-                name='address'
-                onChange={formValue}
-              />
-            </label>
             <label>
               Amount *
               <input
