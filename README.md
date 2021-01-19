@@ -1,12 +1,13 @@
 # VeChain React
 A simple react app in TypeScript and Sass that allows the user to request funds by entering the amount of funds and the address to send the funds to.
 
+[![<ORG_NAME>](https://circleci.com/gh/bkawk/VeChainReact.svg?style=svg)](<LINK>)
+
 ## TODO
 * Change the favicon
 * Add meta for social
 * Add countdown / noise to show when the funds arrive
 * Add routes and change page to show balance
-* Add circle ci config and badge
 * Expand tests for coverage
 * Tidy up sass files and stucture
 
