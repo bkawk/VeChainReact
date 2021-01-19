@@ -1,5 +1,5 @@
 # VeChain React
-A simple react app in TypeScript and Sass that allows the user to request funds by entering the amount of funds and the address to send the funds to.
+A simple react app in TypeScript and Sass that allows the user to request funds by entering the amount of funds and the address to send the funds to. The Address and amount is then sent to AWS SQS where it will await processing by  a lambda function.
 
 [![<ORG_NAME>](https://circleci.com/gh/bkawk/VeChainReact.svg?style=svg)](<LINK>)
 
