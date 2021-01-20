@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 export interface IsMyBalance {
-  vet: string;
-  vtho: string;
+  vet: number;
+  vtho: number;
 }
 
 export interface IsParams {
@@ -13,42 +13,39 @@ export interface IsParams {
 
 function GetBalance() {
   const address = useParams<IsParams>().address;
-  const [myBalance, setMyBalance] = useState<IsMyBalance>({
-    vet: '',
-    vtho: '',
+  const [balance, setMyBalance] = useState<IsMyBalance>({
+    vet: 0,
+    vtho: 0,
   });
 
-  const hexToInt = (hex: string) => {
-    return new BigNumber(hex)
-      .dividedBy(new BigNumber(10 ** 18))
-      .toFixed(2, BigNumber.ROUND_DOWN);
-  };
-
-  const getBalance = async () => {
-    if (window.connex) {
-      const acc = connex.thor.account(address);
-      const accInfo = await acc.get();
-      const vet = `${hexToInt(accInfo.balance)} VET`;
-      const vtho = `${hexToInt(accInfo.energy)} VTHO`;
-      setMyBalance({ vet, vtho });
-      const ticker = connex.thor.ticker();
-      await ticker.next();
-      getBalance();
-    }
-  };
-
   useEffect(() => {
+    const hexToInt = (hex: string) => {
+      return new BigNumber(hex)
+        .dividedBy(new BigNumber(10 ** 18))
+        .toFixed(2, BigNumber.ROUND_DOWN);
+    };
+    const getBalance = async () => {
+      if (window.connex) {
+        const accInfo = await connex.thor.account(address).get();
+        const vet = Number(hexToInt(accInfo.balance));
+        const vtho = Number(hexToInt(accInfo.energy));
+        setMyBalance({ vet, vtho });
+        const ticker = connex.thor.ticker();
+        await ticker.next();
+        getBalance();
+      }
+    };
     getBalance();
   });
 
   return (
     <div className='GetBalance'>
-        <div>Success, your request for funds has been sent!</div>
-        <div className='GetBalance--small'>
-          Your balance below will update when your request is granted:
-        </div>
-        <div>{myBalance.vet}</div>
-        <div>{myBalance.vtho}</div>
+      <div>Success, your request for funds has been sent!</div>
+      <small>
+        Your balance below will update automatically:
+      </small>
+      <div>{balance.vet} VET</div>
+      <div>{balance.vtho} VTHO</div>
     </div>
   );
 }

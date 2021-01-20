@@ -13,8 +13,8 @@ function RequestFunds() {
 
   const requestFunds = async () => {
     try {
-      if (amount < 0.000001) {
-        setApiError('Amount must be greater than 0.000001');
+      if (amount < 0.00000000000000001) {
+        setApiError('Amount must be greater than 0.00000000000000001 VET');
       } else {
         const signingService = connex.vendor.sign('cert');
         const result = await signingService.request({
@@ -38,8 +38,7 @@ function RequestFunds() {
         history.push(`/sent/${address}`);
       }
     } catch (error) {
-      // tslint:disable-next-line: no-console
-      console.log(error);
+      throw new Error(error);
     }
   };
 

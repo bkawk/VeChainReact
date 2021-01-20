@@ -1,16 +1,16 @@
 .GetBalance {
-    align-items: center;
-    color: $white;
-    display: flex;
-    flex-direction: column;
-    font-size: calc(10px + 3vmin);
-    justify-content: center;
-    min-height: 100vh;
-    text-align: center;
+  align-items: center;
+  color: $white;
+  display: flex;
+  flex-direction: column;
+  font-size: calc(10px + 3vmin);
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
 
-    &--small {
-        font-size: 12px;
-        padding-bottom: 14px;
-        padding-top: 14px;
-      }
+  small {
+    font-size: 12px;
+    padding-bottom: 14px;
+    padding-top: 14px;
+  }
 }
