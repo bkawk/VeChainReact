@@ -1,0 +1,23 @@
+* {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  border: 0;
+  box-sizing: border-box;
+  font-family: $font-sans;
+  font-size: 100%;
+  font-style: normal;
+  list-style: none;
+  margin: 0;
+  outline: none;
+  padding: 0;
+  quotes: none;
+  vertical-align: baseline;
+}
+html,
+body {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  background-color: $background-blue;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  margin: 0;
+}

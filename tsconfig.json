@@ -25,5 +25,5 @@
   },
   "include": [
     "src"
-  ]
+, "routes/GetBalance.tsx", "routes/NotFound.tsx", "routes/NoConnex.tsx", "routes/App.tsx"  ]
 }
