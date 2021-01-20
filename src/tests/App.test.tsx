@@ -10,6 +10,6 @@ test('renders Request Funds label', () => {
 
 test('renders Amount label', () => {
   render(<RequestFunds />);
-  const linkElement = screen.getByText(/Amount/i);
+  const linkElement = screen.getByText(/How many/i);
   expect(linkElement).toBeInTheDocument();
 });

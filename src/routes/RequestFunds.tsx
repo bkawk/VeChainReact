@@ -7,9 +7,9 @@ function RequestFunds() {
   const [amount, setAmount] = useState<number>(1);
   const [apiError, setApiError] = useState<string>('');
 
-  useEffect(() => {
-    if (!window.connex) history.push('/environment');
-  }, [history]);
+  // useEffect(() => {
+  //   if (!window.connex) history.push('/environment');
+  // }, [history]);
 
   const requestFunds = async () => {
     try {

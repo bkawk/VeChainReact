@@ -25,14 +25,18 @@ function GetBalance() {
         .toFixed(2, BigNumber.ROUND_DOWN);
     };
     const getBalance = async () => {
-      if (window.connex) {
-        const accInfo = await connex.thor.account(address).get();
-        const vet = Number(hexToInt(accInfo.balance));
-        const vtho = Number(hexToInt(accInfo.energy));
-        setMyBalance({ vet, vtho });
-        const ticker = connex.thor.ticker();
-        await ticker.next();
-        getBalance();
+      try {
+        if (window.connex) {
+          const accInfo = await connex.thor.account(address).get();
+          const vet = Number(hexToInt(accInfo.balance));
+          const vtho = Number(hexToInt(accInfo.energy));
+          setMyBalance({ vet, vtho });
+          const ticker = connex.thor.ticker();
+          await ticker.next();
+          getBalance();
+        }
+      } catch (error) {
+        throw new Error(error);
       }
     };
     getBalance();
@@ -41,9 +45,7 @@ function GetBalance() {
   return (
     <div className='GetBalance'>
       <div>Success, your request for funds has been sent!</div>
-      <small>
-        Your balance below will update automatically:
-      </small>
+      <small>Your balance below will update automatically:</small>
       <div>{balance.vet} VET</div>
       <div>{balance.vtho} VTHO</div>
     </div>
